@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Editing a book</title>
+    <meta charset="utf-8" />
+    <style>
+        .field {
+            width: 180px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Editing a book</h1>
+    <form action="/edit" method="POST">
+        <input type="hidden" name="id" value="{{user.id}}" />
+        <label>Bokk title</label><br>
+        <input name="name" value="{{user.name}}" class="field" /><br><br>
+        <label>Length</label><br>
+        <input name="age" type="number" min="1" max="110" value="{{user.age}}" class="field" /><br><br>
+        <input type="submit" value="Save" />
+    </form>
+    <br>
+    <a href="/">To the list of books</a>
+</body>
+<html>

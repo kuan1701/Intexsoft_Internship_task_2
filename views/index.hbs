@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Books</title>
+    <meta charset="utf-8" />
+    <style>
+        .field {
+            width: 180px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>List of books</h1>
+    
+    <p>
+        <a href="/create">Add book</a>
+    </p>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Book Title</th>
+                <th>Length</th>
+                <th>Localized Title</th>
+                <th>Language</th>
+                <th>Actions</th>
+            </tr>
+            {{#each users}}
+            <tr>
+                <td>{{this.name}}</td>
+                <td>{{this.age}}</td>
+                <td></td>
+                <td></td>
+                <td>
+                    <a href="/edit/{{this.id}}" style="text-decoration: none;">Edit | </a>
+                    <form action="delete/{{this.id}}" method="POST" style="display:inline;">
+                        <input type="submit" value="Delete" />
+                    </form>
+                </td>
+            </tr>
+            {{/each}}
+        </tbody>
+    </table>
+
+    <div>
+        <form action="sort/{{this.id}}" method="POST" style="display:inline;">
+            <input type="hidden" value="PL">
+            <input type="submit" value="PL" />
+        </form>
+
+        <form action="sort/{{this.id}}" method="POST" style="display:inline;">
+            <input type="hidden" value="RU">
+            <input type="submit" value="RU" />
+        </form>
+
+        <form action="sort/{{this.id}}" method="POST" style="display:inline;">
+            <input type="hidden" value="RU">
+            <input type="submit" value="RU" />
+        </form>
+    </div>
+</body>
+<html>
