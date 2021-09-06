@@ -27,15 +27,15 @@
                 <th>Language</th>
                 <th>Actions</th>
             </tr>
-            {{#each users}}
+            {{#each books}}
             <tr>
-                <td>{{this.name}}</td>
-                <td>{{this.age}}</td>
+                <td>{{this.book_name}}</td>
+                <td>{{this.book_lenght}}</td>
                 <td></td>
                 <td></td>
                 <td>
-                    <a href="/edit/{{this.id}}" style="text-decoration: none;">Edit | </a>
-                    <form action="delete/{{this.id}}" method="POST" style="display:inline;">
+                    <a href="/edit/{{this.book_id}}" style="text-decoration: none;">Edit | </a>
+                    <form action="delete/{{this.book_id}}" method="POST" style="display:inline;">
                         <input type="submit" value="Delete" />
                     </form>
                 </td>
