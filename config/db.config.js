@@ -7,11 +7,6 @@ const pool = new Pool({
   password: 'Vwpassatb5.5',
   port: '5432'
 });
-/** 
- *  select * from book b 
-left join locale l on b.book_id = l.book_id 
-left join language la on la.language_id = l.language_id where l.language_id = 1;
-*/
 
 const sortLocalizedBook = (req, res) => {
   const query = "SELECT * FROM book" 
@@ -34,25 +29,13 @@ const sortLocalizedBook = (req, res) => {
  */
 // получение списка книг
 const getBooks = (req, res) => {
-  //const query = "SELECT * FROM book";
-  const query2 = "select * from book"
-  + " left join locale on book_id = l_book_id"
-  + " left join language on language_id = l_language_id"
-  + " where l_language_id = l_language_id order by locale_id;";
+  const query = "SELECT * FROM book";
 
-  // pool.query(query, function (err, data) {
-  //   console.log(data)
-  //   if (err) return console.log(err);
-  //   res.render("index.hbs", {
-  //     bookList: data.rows
-  //   });
-  // });
-
-  pool.query(query2, function (err, data) {
+  pool.query(query, function (err, data) {
     console.log(data)
     if (err) return console.log(err);
-    res.render("index.hbs", {
-      localeBookList: data.rows
+    res.render("listOfBooks.hbs", {
+      bookList: data.rows
     });
   });
 }
@@ -117,7 +100,10 @@ const deleteCustomer = (res, req) => {
  */
 // получение списка локализованных названий книг
 const getLocalizedBookTitles = (req, res) => {
-  const query = "SELECT * FROM locale";
+  const query = "select * from book"
+  + " left join locale on book_id = l_book_id"
+  + " left join language on language_id = l_language_id"
+  + " where l_language_id = l_language_id order by locale_id;";
 
   pool.query(query, function (err, result) {
     console.log(result)
@@ -130,7 +116,15 @@ const getLocalizedBookTitles = (req, res) => {
 
 // возвращаем форму для добавления данных
 const createLocalizedBookTitleForm = (req, res) => {
-  res.render("createLocalizedTitle.hbs");
+  const query = "SELECT * FROM book";
+
+  pool.query(query, function (err, data) {
+    console.log(data)
+    if (err) return console.log(err);
+    res.render("createLocalizedTitle.hbs", {
+      bookList: data.rows
+    });
+  });
 }
 
 // получаем отправленные данные и добавляем их в БД 

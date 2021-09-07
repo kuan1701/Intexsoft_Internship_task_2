@@ -21,12 +21,19 @@
             <option value="1">PL</option>
             <option value="2">RU</option>
             <option value="3">BY</option>
-        </select><br><br>
+        </select>
+        <br><br>
+
         <label>Book</label><br>
-        <input name="l_book_id" type="number" class="field" min="1" max="5000" /><br><br>
+        <select name="l_book_id">
+            {{#each bookList}}
+            <option value={{book_id}}>{{book_name}}</option>
+            {{/each}}
+        </select>
+        <br><br>
         <input type="submit" value="Save" />
     </form>
-    <br>
+    <br><br>
     <a href="/">To the list of books</a>
 </body>
 <html>

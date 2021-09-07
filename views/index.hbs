@@ -15,35 +15,10 @@
     <h1>List of books</h1>
 
     <div class="main_table_container" style="display: flex; justify-content: space-between">
-        <div class="book_table">
+        <div class="localize_table">
             <p>
                 <a href="/create">Add book</a>
             </p>
-            <div class="table">
-                <table>
-                    <tbody>
-                        <tr>
-                            <th>Book Title</th>
-                            <th>Length</th>
-                            <th>Actions</th>
-                        </tr>
-                        {{#each bookList}}
-                        <tr>
-                            <td style="padding:0 10px 0 10px;">{{book_name}}</td>
-                            <td style="padding: 0 10px 0 10px;">{{book_length}} pages</td>
-                            <td style="padding:0 10px 0 10px;">
-                                <a href="/edit/{{book_id}}" style="text-decoration: none;">Edit | </a>
-                                <form action="delete/{{book_id}}" method="POST" style="display:inline;">
-                                    <input type="submit" value="Delete" />
-                                </form>
-                            </td>
-                        </tr>
-                        {{/each}}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <div class="localize_table">
             <p>
                 <a href="/createLocalizedTitle">Add localized title</a>
             </p>
@@ -77,6 +52,10 @@
                 </table>
             </div>
         </div>
+    </div>
+    <br>
+    <div>
+        <a href="/bookList">List of books</a>
     </div>
     <div>
         <p>Sort by languge:</p>

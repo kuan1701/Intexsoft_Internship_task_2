@@ -16,9 +16,9 @@ app.use(express.urlencoded({extended: true}))
  * Book
  */
 // получение списка книг
-app.get("/", pool.getBooks);
+app.get("/bookList", pool.getBooks);
 
-app.get("/", pool.sortLocalizedBook);
+//app.get("/", pool.sortLocalizedBook);
 
 // возвращаем форму для добавления данных
 app.get("/create", pool.createBookForm);
