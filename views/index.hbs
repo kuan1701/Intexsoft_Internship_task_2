@@ -13,52 +13,86 @@
 
 <body>
     <h1>List of books</h1>
-    
-    <p>
-        <a href="/create">Add book</a>
-    </p>
 
-    <table>
-        <tbody>
-            <tr>
-                <th>Book Title</th>
-                <th>Length</th>
-                <th>Localized Title</th>
-                <th>Language</th>
-                <th>Actions</th>
-            </tr>
-            {{#each books}}
-            <tr>
-                <td>{{this.book_name}}</td>
-                <td>{{this.book_lenght}}</td>
-                <td></td>
-                <td></td>
-                <td>
-                    <a href="/edit/{{this.book_id}}" style="text-decoration: none;">Edit | </a>
-                    <form action="delete/{{this.book_id}}" method="POST" style="display:inline;">
-                        <input type="submit" value="Delete" />
-                    </form>
-                </td>
-            </tr>
-            {{/each}}
-        </tbody>
-    </table>
-
+    <div class="main_table_container" style="display: flex; justify-content: space-between">
+        <div class="book_table">
+            <p>
+                <a href="/create">Add book</a>
+            </p>
+            <div class="table">
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Length</th>
+                            <th>Actions</th>
+                        </tr>
+                        {{#each bookList}}
+                        <tr>
+                            <td style="padding:0 10px 0 10px;">{{book_name}}</td>
+                            <td style="padding: 0 10px 0 10px;">{{book_length}} pages</td>
+                            <td style="padding:0 10px 0 10px;">
+                                <a href="/edit/{{book_id}}" style="text-decoration: none;">Edit | </a>
+                                <form action="delete/{{book_id}}" method="POST" style="display:inline;">
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="localize_table">
+            <p>
+                <a href="/createLocalizedTitle">Add localized title</a>
+            </p>
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Localized book title</th>
+                            <th>Language</th>
+                            <th>Pages</th>
+                            <th>Actions</th>
+                        </tr>
+                        {{#each localeBookList}}
+                        <tr>
+                            <td style="padding:0 10px 0 10px;">{{book_name}}</td>
+                            <td style="padding:0 10px 0 10px;">{{locale_book_name}}</td>
+                            <td style="padding:0 10px 0 10px;">
+                                {{language_name}}
+                            </td>
+                            <td style="padding:0 10px 0 10px;">{{book_length}}</td>
+                            <td>
+                                <a href="/edit/{{book_id}}" style="text-decoration: none;">Edit | </a>
+                                <form action="delete/{{book_id}}" method="POST" style="display:inline;">
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
     <div>
         <p>Sort by languge:</p>
-        <form action="sort/{{this.id}}" method="POST" style="display:inline;">
-            <input type="hidden" value="PL">
+        <form action="/" method="POST" style="display:inline;">
+            <input type="hidden" value="1">
             <input type="submit" value="PL" />
         </form>
 
-        <form action="sort/{{this.id}}" method="POST" style="display:inline;">
-            <input type="hidden" value="RU">
+        <form action="/" method="POST" style="display:inline;">
+            <input type="hidden" value="2">
             <input type="submit" value="RU" />
         </form>
 
-        <form action="sort/{{this.id}}" method="POST" style="display:inline;">
-            <input type="hidden" value="RU">
-            <input type="submit" value="RU" />
+        <form action="/" method="POST" style="display:inline;">
+            <input type="hidden" value="3">
+            <input type="submit" value="BY" />
         </form>
     </div>
 </body>

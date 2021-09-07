@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Adding a localize title</title>
+    <meta charset="utf-8" />
+    <style>
+        .field {
+            width: 180px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Adding a localize title</h1>
+    <form method="POST">
+        <label>Book title</label><br>
+        <input name="locale_book_name" class="field" /><br><br>
+        <label>Language</label><br>
+        <select name="l_language_id">
+            <option value="1">PL</option>
+            <option value="2">RU</option>
+            <option value="3">BY</option>
+        </select><br><br>
+        <label>Book</label><br>
+        <input name="l_book_id" type="number" class="field" min="1" max="5000" /><br><br>
+        <input type="submit" value="Save" />
+    </form>
+    <br>
+    <a href="/">To the list of books</a>
+</body>
+<html>
