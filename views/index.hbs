@@ -3,6 +3,7 @@
 
 <head>
     <title>Books</title>
+    <link rel="stylesheet" type="text/css" href="/Intexsoft_Internship_task_2/public/styles/index.css">
     <meta charset="utf-8" />
     <style>
         .field {
@@ -11,7 +12,7 @@
     </style>
 </head>
 
-<body>
+<body class="container">
     <h1>List of books</h1>
 
     <div class="main_table_container" style="display: flex; justify-content: space-between">
@@ -35,10 +36,12 @@
                         {{#each localeBookList}}
                         <tr>
                             <td style="padding:0 10px 0 10px;">{{book_name}}</td>
+                            {{#if (isEmpty locale_book_name)}}
+                            <td style="padding:0 10px 0 10px;">{{book_name}}</td>
+                            {{else}}
                             <td style="padding:0 10px 0 10px;">{{locale_book_name}}</td>
-                            <td style="padding:0 10px 0 10px;">
-                                {{language_name}}
-                            </td>
+                            {{/if}}
+                            <td style="padding:0 10px 0 10px;">{{language_name}}</td>
                             <td style="padding:0 10px 0 10px;">{{book_length}}</td>
                             <td>
                                 <a href="/edit/{{book_id}}" style="text-decoration: none;">Edit | </a>

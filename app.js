@@ -1,16 +1,34 @@
 const express = require("express");
 const app = express();
+const hbs = require('express-handlebars');
 const pool = require('./config/db.config');
 const port = 3000;
-
-// set up view engine
-app.set("view engine", "hbs");
 
 // set up public files
 app.use(express.static('public'));
 
+app.engine('hbs', hbs({
+  helpers: {
+    isEmpty: function (locale_book_name) {
+      if (locale_book_name == "") {
+        return true
+      } else {
+        return false
+      }
+    },
+  },
+  layoutsDir: __dirname + '/views',
+  defaultLayout: 'index',
+  extname: '.hbs'
+}));
+
+// set up view engine
+app.set("view engine", "hbs");
+
 app.use(express.json());
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({
+  extended: true
+}))
 
 /**
  * Book
@@ -56,6 +74,6 @@ app.post("/editLocalizedTitle", pool.editLocalizedTitle);
 // получаем id удаляемого локализованного названия книги и удаляем его из бд
 app.post("/deleteLocalizedTitle/:id", pool.deleteLocalizedBookTitle);
 
-app.listen(port, function(){
+app.listen(port, function () {
   console.log(`App running on port ${port}`);
 });
