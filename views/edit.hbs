@@ -1,20 +1,7 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Editing a book</title>
-    <meta charset="utf-8" />
-    <style>
-        .field {
-            width: 180px;
-        }
-    </style>
-</head>
-
-<body>
+<div>
     <h1>Editing a book</h1>
     <form action="/edit" method="POST">
-        <input type="hidden" name="book_id" value="{{book_id}}"" />
+        <input type="hidden" name="book_id" value="{{book_id}}" />
         <label>Book title</label><br>
         <input name="book_name" value="{{book_name}}" class="field" /><br><br>
         <label>Length</label><br>
@@ -23,5 +10,4 @@
     </form>
     <br>
     <a href="/bookList">To the list of books</a>
-</body>
-<html>
+</div>

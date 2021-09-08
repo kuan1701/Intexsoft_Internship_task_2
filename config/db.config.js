@@ -8,6 +8,7 @@ const pool = new Pool({
   port: '5432'
 });
 
+//сортируем локализованные названия книг по языку
 const sortLocalizedBook = (req, res) => {
   const query = "SELECT * FROM book" 
   + " LEFT JOIN locale ON book_id = l_book_id" 
@@ -26,7 +27,7 @@ const sortLocalizedBook = (req, res) => {
 }
 
 /**
- * Book
+ * Book methods
  */
 // получение списка книг
 const getBooks = (req, res) => {
@@ -97,7 +98,7 @@ const deleteCustomer = (req, res) => {
 }
 
 /**
- * Localized book title
+ * Localized book title methods
  */
 // получение списка локализованных названий книг
 const getLocalizedBookTitles = (req, res) => {

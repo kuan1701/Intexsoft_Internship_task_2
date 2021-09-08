@@ -7,6 +7,7 @@ const port = 3000;
 // set up public files
 app.use(express.static('/Intexsoft_Internship_task_2/public'));
 
+// set up templates engine
 app.engine('hbs', hbs({
   helpers: {
     isEmpty: function (locale_book_name) {
@@ -23,13 +24,16 @@ app.engine('hbs', hbs({
 // set up view engine
 app.set("view engine", "hbs");
 
+// для обработки данных в формате json
 app.use(express.json());
+
+// для обработки данных в URL-адресах
 app.use(express.urlencoded({
   extended: true
 }))
 
 /**
- * Book
+ * Book routes
  */
 // получение списка книг
 app.get("/bookList", pool.getBooks);
@@ -50,7 +54,7 @@ app.post("/edit/:book_id", pool.editCustomer);
 app.post("/delete/:book_id", pool.deleteCustomer);
 
 /**
- * Localized book title
+ * Localized book title routes
  */
 // получение списка локализованных названии книг
 app.get("/", pool.getLocalizedBookTitles);
@@ -70,8 +74,10 @@ app.post("/editLocalizedTitle/:locale_id", pool.editLocalizedTitle);
 // получаем id удаляемого локализованного названия книги и удаляем его из бд
 app.post("/deleteLocalizedTitle/:locale_id", pool.deleteLocalizedBookTitle);
 
+//сортируем локализованные названия книг по языку
 app.get("/sortLocalizedTitles", pool.sortLocalizedBook);
 
+// set up port
 app.listen(port, function () {
   console.log(`App running on port ${port}`);
 });
