@@ -1,21 +1,5 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Books</title>
-    <link rel="stylesheet" type="text/css" href="/Intexsoft_Internship_task_2/public/styles/index.css">
-    <meta charset="utf-8" />
-    <style>
-        .field {
-            width: 180px;
-        }
-    </style>
-</head>
-
-<body class="container">
-    <h1>List of books</h1>
-
-    <div class="main_table_container" style="display: flex; justify-content: space-between">
+    <div class="main_table_container">
+        <h1>List of books</h1>
         <div class="localize_table">
             <p>
                 <a href="/create">Add book</a>
@@ -44,8 +28,8 @@
                             <td style="padding:0 10px 0 10px;">{{language_name}}</td>
                             <td style="padding:0 10px 0 10px;">{{book_length}}</td>
                             <td>
-                                <a href="/edit/{{book_id}}" style="text-decoration: none;">Edit | </a>
-                                <form action="delete/{{book_id}}" method="POST" style="display:inline;">
+                                <a href="/editLocalizedTitle/{{locale_id}}" style="text-decoration: none;">Edit | </a>
+                                <form action="deleteLocalizedTitle/{{locale_id}}" method="POST" style="display:inline;">
                                     <input type="submit" value="Delete" />
                                 </form>
                             </td>
@@ -62,20 +46,18 @@
     </div>
     <div>
         <p>Sort by languge:</p>
-        <form action="/" method="POST" style="display:inline;">
-            <input type="hidden" value="1">
+        <form action="/sortLocalizedTitles/{{l_language_id}}" method="GET" style="display:inline;">
+            <input type="hidden" name="l_language_id" value="1">
             <input type="submit" value="PL" />
         </form>
 
-        <form action="/" method="POST" style="display:inline;">
-            <input type="hidden" value="2">
+        <form action="/sortLocalizedTitles/{{l_language_id}}" method="GET" style="display:inline;">
+            <input type="hidden" name="l_language_id" value="2">
             <input type="submit" value="RU" />
         </form>
 
-        <form action="/" method="POST" style="display:inline;">
-            <input type="hidden" value="3">
+        <form action="/sortLocalizedTitles/{{l_language_id}}" method="GET" style="display:inline;">
+            <input type="hidden" name="l_language_id" value="3">
             <input type="submit" value="BY" />
         </form>
     </div>
-</body>
-<html>

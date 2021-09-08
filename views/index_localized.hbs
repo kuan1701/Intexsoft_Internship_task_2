@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Books</title>
+    <link rel="stylesheet" type="text/css" href="/Intexsoft_Internship_task_2/public/styles/index.css">
+    <meta charset="utf-8" />
+    <style>
+        .field {
+            width: 180px;
+        }
+    </style>
+</head>
+
+<body class="container">
+    <h1>List of books</h1>
+
+    <div class="main_table_container" style="display: flex; justify-content: space-between">
+        <div class="localize_table">
+            <p>
+                <a href="/create">Add book</a>
+            </p>
+            <p>
+                <a href="/createLocalizedTitle">Add localized title</a>
+            </p>
+            <div>
+                <table>
+                    <tbody>
+                        <tr>
+                            <th>Book Title</th>
+                            <th>Localized book title</th>
+                            <th>Language</th>
+                            <th>Pages</th>
+                            <th>Actions</th>
+                        </tr>
+                        {{#each localeBookList}}
+                        <tr>
+                            <td style="padding:0 10px 0 10px;">{{book_name}}</td>
+                            {{#if (isEmpty locale_book_name)}}
+                            <td style="padding:0 10px 0 10px;">{{book_name}}</td>
+                            {{else}}
+                            <td style="padding:0 10px 0 10px;">{{locale_book_name}}</td>
+                            {{/if}}
+                            <td style="padding:0 10px 0 10px;">{{language_name}}</td>
+                            <td style="padding:0 10px 0 10px;">{{book_lenght}}</td>
+                            <td>
+                                <a href="/editLocalizedTitle/{{locale_id}}" style="text-decoration: none;">Edit | </a>
+                                <form action="deleteLocalizedTitle/{{locale_id}}" method="POST" style="display:inline;">
+                                    <input type="submit" value="Delete" />
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <br>
+    <div>
+        <a href="/bookList">List of books</a>
+    </div>
+    <div>
+        <p>Sort by languge:</p>
+        <form action="/sortLocalizedTitles" method="GET" style="display:inline;">
+            <input type="hidden" name="l_language_id" value="1">
+            <input type="submit" value="PL" />
+        </form>
+
+        <form action="/sortLocalizedTitles" method="GET" style="display:inline;">
+            <input type="hidden" name="l_language_id" value="2">
+            <input type="submit" value="RU" />
+        </form>
+
+        <form action="/sortLocalizedTitles" method="GET" style="display:inline;">
+            <input type="hidden" name="l_language_id" value="3">
+            <input type="submit" value="BY" />
+        </form>
+    </div>
+</body>
+<html>

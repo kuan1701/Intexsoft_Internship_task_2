@@ -12,13 +12,14 @@ const sortLocalizedBook = (req, res) => {
   const query = "SELECT * FROM book" 
   + " LEFT JOIN locale ON book_id = l_book_id" 
   + " LEFT JOIN language ON language_id = l_language_id" 
-  + " WHERE l.language_id = $1";
+  + " WHERE l_language_id = $1";
   
-  const l_language_id = parseInt(req.params.l_language_id);
+  const l_language_id = req.body.l_language_id;
+  // console.log(l_language_id);
   pool.query(query, [l_language_id], function(err, data) {
     console.log(data);
     if(err) return console.log(err);
-    res.render("index.hbs", {
+    res.render("index_localized.hbs", {
       localeBookList: data.rows
     })
   })
@@ -51,17 +52,17 @@ const createBook = (req, res) => {
 
   if (!req.body) return res.sendStatus(400);
   const book_name = req.body.book_name;
-  const book_length = req.body.book_lenght;
+  const book_length = req.body.book_length;
   pool.query(query, [book_name, book_length], function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/");
+    res.redirect("/bookList");
   });
 }
 
 // получаем id редактируемой книги, получаем его из бд и отправлям с формой редактирования
-const editCustomerInfoForm = (res, req) => {
+const editCustomerInfoForm = (req, res) => {
   const query = "SELECT * FROM book WHERE book_id = $1";
-  const book_id = parseInt(req.params.book_id);
+  const book_id = req.params.book_id;
   pool.query(query, [book_id], function (err, data) {
     if (err) return console.log(err);
     res.render("edit.hbs", {
@@ -71,27 +72,27 @@ const editCustomerInfoForm = (res, req) => {
 }
 
 // получаем отредактированные данные и отправляем их в БД
-const editCustomer = (res, req) => {
+const editCustomer = (req, res) => {
   if (!req.body) return res.sendStatus(400);
   const book_name = req.body.book_name;
-  const book_lenght = req.body.book_lenght;
-  const book_id = parseInt(req.params.book_id);
-  const query = "UPDATE book SET book_name = $1, book_lenght = $2 WHERE book_id = $3";
+  const book_length = req.body.book_length;
+  const book_id = req.params.book_id;
+  const query = "UPDATE book SET book_name = $1, book_length = $2 WHERE book_id = $3";
 
-  pool.query(query, [book_name, book_lenght, book_id], function (err, data) {
+  pool.query(query, [book_name, book_length, book_id], function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/");
+    res.redirect("/bookList");
   });
 }
 
 // получаем id удаляемой книги и удаляем его из бд
-const deleteCustomer = (res, req) => {
-  const book_id = parseInt(req.params.book_id);
+const deleteCustomer = (req, res) => {
+  const book_id = req.params.book_id;
   const query = "DELETE FROM book WHERE book_id = $1";
 
   pool.query(query, [book_id], function (err, data) {
     if (err) return console.log(err);
-    res.redirect("/");
+    res.redirect("/bookList");
   });
 }
 
@@ -100,10 +101,10 @@ const deleteCustomer = (res, req) => {
  */
 // получение списка локализованных названий книг
 const getLocalizedBookTitles = (req, res) => {
-  const query = "select * from book"
-  + " left join locale on book_id = l_book_id"
-  + " left join language on language_id = l_language_id"
-  + " where l_language_id = l_language_id order by locale_id;";
+  const query = "SELECT * FROM book"
+  + " LEFT JOIN locale ON book_id = l_book_id"
+  + " LEFT JOIN language ON language_id = l_language_id"
+  + " WHERE l_language_id = l_language_id ORDER BY locale_id;";
 
   pool.query(query, function (err, result) {
     console.log(result)
@@ -142,24 +143,36 @@ const createLocalizedBookTitle = (req, res) => {
 }
 
 // получаем id редактируемой книги, получаем его из бд и отправлям с формой редактирования
-const editLocalizedTitleInfoForm = (res, req) => {
+const editLocalizedTitleInfoForm = (req, res) => {
   const query = "SELECT * FROM locale WHERE locale_id = $1";
-  const locale_id = parseInt(req.params.locale_id);
+  const locale_id = req.params.locale_id;
   pool.query(query, [locale_id], function (err, data) {
     if (err) return console.log(err);
     res.render("editLocalizedTitle.hbs", {
-      titleBookList: data.rows[0]
+      bookList: data.rows
     });
   });
 }
 
+// const editLocalizedTitleInfoForm2 = (req, res) => {
+//   const query = "SELECT * FROM book";
+
+//   pool.query(query, function (err, data) {
+//     console.log(data)
+//     if (err) return console.log(err);
+//     res.render("editLocalizedTitle.hbs", {
+//       bookList: data.rows
+//     });
+//   });
+// }
+
 // получаем отредактированные данные и отправляем их в БД
-const editLocalizedTitle = (res, req) => {
+const editLocalizedTitle = (req, res) => {
   if (!req.body) return res.sendStatus(400);
   const locale_book_name = req.body.locale_book_name;
   const language_id = req.body.language_id;
   const book_id = req.body.book_id;
-  const locale_id = parseInt(req.params.locale_id);
+  const locale_id = req.params.locale_id;
   const query = "UPDATE locale SET locale_book_name = $1, language_id = $2, book_id = $3 WHERE locale_id = $4";
 
   pool.query(query, [locale_book_name, language_id, book_id, locale_id], function (err, data) {
@@ -169,8 +182,8 @@ const editLocalizedTitle = (res, req) => {
 }
 
 // получаем id удаляемого локализованного названия книги и удаляем его из бд
-const deleteLocalizedBookTitle = (res, req) => {
-  const locale_id = parseInt(req.params.locale_id);
+const deleteLocalizedBookTitle = (req, res) => {
+  const locale_id = req.params.locale_id;
   const query = "DELETE FROM locale WHERE locale_id = $1";
 
   pool.query(query, [locale_id], function (err, data) {

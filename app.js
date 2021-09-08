@@ -5,20 +5,18 @@ const pool = require('./config/db.config');
 const port = 3000;
 
 // set up public files
-app.use(express.static('public'));
+app.use(express.static('/Intexsoft_Internship_task_2/public'));
 
 app.engine('hbs', hbs({
   helpers: {
     isEmpty: function (locale_book_name) {
       if (locale_book_name == "") {
         return true
-      } else {
-        return false
       }
     },
   },
   layoutsDir: __dirname + '/views',
-  defaultLayout: 'index',
+  defaultLayout: 'main',
   extname: '.hbs'
 }));
 
@@ -36,8 +34,6 @@ app.use(express.urlencoded({
 // получение списка книг
 app.get("/bookList", pool.getBooks);
 
-//app.get("/", pool.sortLocalizedBook);
-
 // возвращаем форму для добавления данных
 app.get("/create", pool.createBookForm);
 
@@ -45,13 +41,13 @@ app.get("/create", pool.createBookForm);
 app.post("/create", pool.createBook);
 
 // получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
-app.get("/edit/:id", pool.editCustomerInfoForm);
+app.get("/edit/:book_id", pool.editCustomerInfoForm);
 
 // получаем отредактированные данные и отправляем их в БД
-app.post("/edit", pool.editCustomer);
+app.post("/edit/:book_id", pool.editCustomer);
 
 // получаем id удаляемого пользователя и удаляем его из бд
-app.post("/delete/:id", pool.deleteCustomer);
+app.post("/delete/:book_id", pool.deleteCustomer);
 
 /**
  * Localized book title
@@ -66,13 +62,15 @@ app.get("/createLocalizedTitle", pool.createLocalizedBookTitleForm);
 app.post("/createLocalizedTitle", pool.createLocalizedBookTitle);
 
 // получем id редактируемого локализованного названия книги, получаем его из бд и отправлям с формой редактирования
-app.get("/editLocalizedTitle/:id", pool.editLocalizedTitleInfoForm);
+app.get("/editLocalizedTitle/:locale_id", pool.editLocalizedTitleInfoForm);
 
 // получаем отредактированные данные и отправляем их в БД
-app.post("/editLocalizedTitle", pool.editLocalizedTitle);
+app.post("/editLocalizedTitle/:locale_id", pool.editLocalizedTitle);
 
 // получаем id удаляемого локализованного названия книги и удаляем его из бд
-app.post("/deleteLocalizedTitle/:id", pool.deleteLocalizedBookTitle);
+app.post("/deleteLocalizedTitle/:locale_id", pool.deleteLocalizedBookTitle);
+
+app.get("/sortLocalizedTitles", pool.sortLocalizedBook);
 
 app.listen(port, function () {
   console.log(`App running on port ${port}`);

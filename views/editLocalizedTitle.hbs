@@ -13,12 +13,24 @@
 
 <body>
     <h1>Editing a localized book title</h1>
-    <form action="/editLocalizedTitle" method="POST">
-        <input type="hidden" name="l_book_id" value="{{l_book_id}}" />
-        <label>Book title</label><br>
-        <input name="book_name" value="{{book_name}}" class="field" /><br><br>
-        <label>Length</label><br>
-        <input name="book_lenght" type="number" min="1" max="5000" value="{{book_lenght}}" class="field" /><br><br>
+    <form action="/editLocalizedTitle/{{locale_id}}" method="POST">
+        <label>Localized book title</label><br>
+        <input name="locale_book_name" class="field" value="{{locale_book_name}}"/><br><br>
+        <label>Language</label><br>
+        <select name="l_language_id">
+            <option value="1">PL</option>
+            <option value="2">RU</option>
+            <option value="3">BY</option>
+        </select>
+        <br><br>
+
+        <label>Book</label><br>
+        <select name="l_book_id">
+            {{#each bookList}}
+            <option value={{book_id}}>{{book_name}}</option>
+            {{/each}}
+        </select>
+        <br><br>
         <input type="submit" value="Save" />
     </form>
     <br>
