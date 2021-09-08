@@ -80,6 +80,8 @@ const editCustomer = (req, res) => {
   const book_id = req.params.book_id;
   const query = "UPDATE book SET book_name = $1, book_length = $2 WHERE book_id = $3";
 
+  console.log(book_id)
+
   pool.query(query, [book_name, book_length, book_id], function (err, data) {
     if (err) return console.log(err);
     res.redirect("/bookList");

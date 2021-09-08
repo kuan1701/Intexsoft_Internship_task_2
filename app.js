@@ -69,7 +69,7 @@ app.post("/createLocalizedTitle", pool.createLocalizedBookTitle);
 app.get("/editLocalizedTitle/:locale_id", pool.editLocalizedTitleInfoForm);
 
 // получаем отредактированные данные и отправляем их в БД
-app.post("/editLocalizedTitle/:locale_id", pool.editLocalizedTitle);
+app.post("/editLocalizedTitle", pool.editLocalizedTitle);
 
 // получаем id удаляемого локализованного названия книги и удаляем его из бд
 app.post("/deleteLocalizedTitle/:locale_id", pool.deleteLocalizedBookTitle);
